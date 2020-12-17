@@ -1,0 +1,116 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1>None</h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 1550px;
+            background-color: #222222;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"font": {"color": "white"}, "id": "a1", "label": "a1", "shape": "dot", "title": "argument 1", "value": 10}, {"font": {"color": "white"}, "id": "a21", "label": "a21", "shape": "dot", "title": "attack a1 a", "value": 10}, {"font": {"color": "white"}, "id": "a22", "label": "a22", "shape": "dot", "title": "attack- a1 b", "value": 10}, {"font": {"color": "white"}, "id": "a23", "label": "a23", "shape": "dot", "title": "attack- a1 c", "value": 10}, {"font": {"color": "white"}, "id": "a31", "label": "a31", "shape": "dot", "title": "attack a21 a ", "value": 10}, {"font": {"color": "white"}, "id": "a32", "label": "a32", "shape": "dot", "title": "attack a21 b ", "value": 10}, {"font": {"color": "white"}, "id": "a33", "label": "a33", "shape": "dot", "title": "attack a23 a ", "value": 10}, {"font": {"color": "white"}, "id": "a34", "label": "a34", "shape": "dot", "title": "attack a23 b ", "value": 10}, {"font": {"color": "white"}, "id": "a41", "label": "a41", "shape": "dot", "title": "attack a34 a ", "value": 10}]);
+        edges = new vis.DataSet([{"from": "a21", "to": "a1"}, {"from": "a23", "to": "a1"}, {"from": "a22", "to": "a1"}, {"from": "a31", "to": "a21"}, {"from": "a32", "to": "a21"}, {"from": "a33", "to": "a23"}, {"from": "a34", "to": "a23"}, {"from": "a41", "to": "a33"}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "barnesHut": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.3,
+            "damping": 0.09,
+            "gravitationalConstant": 100,
+            "springConstant": 0.001,
+            "springLength": 250
+        },
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
